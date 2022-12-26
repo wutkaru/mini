@@ -5,7 +5,7 @@ import { MiniappComponent } from './miniapp/miniapp.component';
 
 const routes: Routes = [
   { path: 'mini', component: MiniappComponent },
-  { path: 'mini/callback', component: MiniappCallbackComponent }
+  { path: 'mini-callback', component: MiniappCallbackComponent }
 ];
 
 @NgModule({
