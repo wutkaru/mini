@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>MiniAppTest</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+
+
+  <script>
+
+
+
+    function CheckJSBridge() {
+      var data = {
+        clientId: '',
+        redirectUri: ``,
+        responseType: '',
+        scope: '',
+        state: '123456789' // generate string or uuid length > 8 
+      }
+
+      if (window.JSBridge) {
+        // android
+        window.JSBridge.initAuth?.(
+          data.clientId,
+          data.redirectUri,
+          data.responseType,
+          data.scope,
+          data.state,
+        )
+      } else if (window.webkit) {
+        // ios
+        window.webkit.messageHandlers.observer.postMessage({
+          name: 'initAuth',
+          ...data,
+        })
+      }
+    }
+
+
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>
