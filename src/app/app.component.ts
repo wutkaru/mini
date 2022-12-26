@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   paramsObject: any
   ngOnInit() {
 
-    if (window.location.pathname != "/miniapp-callback") {
+    if (window.location.pathname != "/mini/callback") {
       CheckJSBridge()
     }
   }
