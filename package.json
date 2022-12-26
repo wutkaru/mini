@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --output-path docs --base-href https://wutkaru.github.io/mini",
+    "build": "ng build --output-path docs --base-href /mini/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
