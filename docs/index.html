@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>MiniAppTest</title>
+  <base href="/mini/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+
+
+  <script>
+
+
+
+    function CheckJSBridge() {
+      var data = {
+        clientId: 'dfc737c7-1153-4594-86ce-9fd77a42e16c',
+        redirectUri: `https://wutkaru.github.io/mini-callback`,
+        responseType: 'code',
+        scope: 'offline openid citizen',
+        state: '123456789' // generate string or uuid length > 8 
+      }
+
+      if (window.JSBridge) {
+        // android
+        window.JSBridge.initAuth?.(
+          data.clientId,
+          data.redirectUri,
+          data.responseType,
+          data.scope,
+          data.state,
+        )
+      } else if (window.webkit) {
+        // ios
+        window.webkit.messageHandlers.observer.postMessage({
+          name: 'initAuth',
+          ...data,
+        })
+      }
+    }
+
+
+  </script>
+<link rel="stylesheet" href="styles.ef46db3751d8e999.css"></head>
+
+<body>
+  <app-root></app-root>
+<script src="runtime.20ccd326a0621aa0.js" type="module"></script><script src="polyfills.2e2de9e7f6fd0bbc.js" type="module"></script><script src="main.ba4a9b66c0b080e1.js" type="module"></script>
+
+</body></html>
