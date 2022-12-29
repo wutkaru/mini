@@ -1,19 +1,18 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-miniapp-callback',
   templateUrl: './miniapp-callback.component.html',
   styleUrls: ['./miniapp-callback.component.scss']
 })
+
 export class MiniappCallbackComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
+    public appService: AppService,
   ) { }
 
   paramsObject: any

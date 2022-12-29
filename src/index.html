@@ -7,43 +7,6 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-
-
-  <script>
-
-
-
-    function CheckJSBridge() {
-      var data = {
-        clientId: 'dfc737c7-1153-4594-86ce-9fd77a42e16c',
-        redirectUri: `https://wutkaru.github.io/mini/mini-callback`,
-        responseType: 'code',
-        scope: 'offline+openid+citizen',
-        state: '123456789' // generate string or uuid length > 8 
-      }
-      console.log('CheckJSBridge ', data);
-
-      if (window.JSBridge) {
-        // android
-        window.JSBridge.initAuth?.(
-          data.clientId,
-          data.redirectUri,
-          data.responseType,
-          data.scope,
-          data.state,
-        )
-      } else if (window.webkit) {
-        // ios
-        window.webkit.messageHandlers.observer.postMessage({
-          name: 'initAuth',
-          ...data,
-        })
-      }
-    }
-
-
-  </script>
 </head>
 
 <body>

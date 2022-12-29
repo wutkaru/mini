@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MiniappComponent } from './miniapp/miniapp.component';
 import { MiniappCallbackComponent } from './miniapp-callback/miniapp-callback.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
