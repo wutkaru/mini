@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-declare function CheckJSBridge(): any;
 
 @Component({
   selector: 'app-miniapp',
@@ -15,5 +14,4 @@ export class MiniappComponent implements OnInit {
   ngOnInit(): void {
     this.appService.CheckJSBridge();
   }
-
 }

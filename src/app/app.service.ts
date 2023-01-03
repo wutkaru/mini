@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
 export interface JavascriptCallback {
   closeWebview(): any;
@@ -13,6 +14,8 @@ declare const webkit: any;
   providedIn: "root",
 })
 export class AppService {
+
+  constructor(private route: ActivatedRoute) { }
   public close() {
     console.log("close webview");
 
@@ -32,13 +35,21 @@ export class AppService {
     }
   }
 
+  private getState(): string {
+    const params = this.route.snapshot.queryParams;
+    const state = Object.keys(params).map((key) => { 
+      return key + "=" + params[key];
+    }).join("&");
+    return state;
+  }
+
   public CheckJSBridge() {
     var data = {
       clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
       redirectUri: `https://wutkaru.github.io/mini/mini-callback`,
       responseType: "code",
       scope: "offline+openid+citizen",
-      state: "123456789", // generate string or uuid length > 8
+      state: this.getState(), // generate string or uuid length > 8
     };
     console.log("CheckJSBridge ", data);
 
