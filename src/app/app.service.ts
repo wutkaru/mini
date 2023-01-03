@@ -15,6 +15,29 @@ declare const webkit: any;
 })
 export class AppService {
 
+  private message = {
+    name: "initAuth",
+    clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
+    redirectUri: "https://wutkaru.github.io/mini/mini-callback",
+    responseType: "code",
+    scope: "offline+openid+citizen",
+    state: "123456789"
+  };
+  
+  private messageWithAuthKey = {
+    ...this.message,
+    state: "123456789"
+  };
+  
+  private messageOrg = {
+    name: "initAuth",
+    clientId: "851e4444-f5cd-40a6-89a0-c7cafc1210db",
+    redirectUri: "https://miniapp-ptid-uat.web.app/miniapp-callback",
+    responseType: "code",
+    scope: "offline+openid",
+    state: "123456789"
+  }
+
   constructor(private route: ActivatedRoute) { }
   public close() {
     console.log("close webview");
@@ -35,6 +58,20 @@ export class AppService {
     }
   }
 
+  public getMessage(){
+    return this.message;
+  }
+
+  public getMessageWithAuthKey(){
+    return {
+      ...this.message,
+      state: this.getState()
+    }
+  }
+  public getMessageOrg(){
+    return this.messageOrg;
+  }
+
   private getState(): string {
     const params = this.route.snapshot.queryParams;
     const state = Object.keys(params).map((key) => { 
@@ -44,13 +81,7 @@ export class AppService {
   }
 
   public CheckJSBridge() {
-    var data = {
-      clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
-      redirectUri: `https://wutkaru.github.io/mini/mini-callback`,
-      responseType: "code",
-      scope: "offline+openid+citizen",
-      state: this.getState(), // generate string or uuid length > 8
-    };
+    let data = this.getMessageWithAuthKey();
     console.log("CheckJSBridge ", data);
 
     if (window.JSBridge) {
@@ -64,10 +95,7 @@ export class AppService {
       );
     } else if (window.webkit) {
       // ios
-      window.webkit.messageHandlers.observer.postMessage({
-        name: "initAuth",
-        ...data,
-      });
+      window.webkit.messageHandlers.observer.postMessage(data);
     }
   }
 }
