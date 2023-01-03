@@ -12,6 +12,7 @@ export class MiniappComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.appService.CheckJSBridge();
+    // this.appService.CheckJSBridge();
+    this.appService.getMessage('messageWithAuthKey');
   }
 }

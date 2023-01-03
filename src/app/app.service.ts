@@ -16,34 +16,33 @@ declare const webkit: any;
 export class AppService {
 
   private get message() {
-    return {
+    let message = {
       name: "initAuth",
       clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
       redirectUri: "https://wutkaru.github.io/mini/mini-callback",
       responseType: "code",
       scope: "offline+openid+citizen",
       state: "123456789"
-    }
-  };
-  
-  private get messageWithAuthKey() {
-    return {
-      ...this.message,
-      state: "123456789" + this.getState()
-    }
-  };
-  
-  private get messageOrg() {
-    return {
+    };
+    let messageWithAuthKey = {
+      ...message,
+      state: this.getState()
+    };
+    let messageOrg = {
       name: "initAuth",
       clientId: "851e4444-f5cd-40a6-89a0-c7cafc1210db",
       redirectUri: "https://miniapp-ptid-uat.web.app/miniapp-callback",
       responseType: "code",
       scope: "offline+openid",
       state: "123456789"
-    }
+    };
+    return {
+      message,
+      messageWithAuthKey,
+      messageOrg
+    };
   }
-
+  
   constructor(private route: ActivatedRoute) { }
   public close() {
     console.log("close webview");
@@ -64,15 +63,9 @@ export class AppService {
     }
   }
 
-  public getMessage(){
-    return window.webkit.messageHandlers.observer.postMessage(this.message);
-  }
-
-  public getMessageWithAuthKey(){
-    return window.webkit.messageHandlers.observer.postMessage(this.messageWithAuthKey)
-  }
-  public getMessageOrg(){
-    return  window.webkit.messageHandlers.observer.postMessage(this.messageOrg);
+  public getMessage(type: 'message' | 'messageWithAuthKey' | 'messageOrg'){
+    alert(JSON.stringify(this.message[type]));
+    return window.webkit.messageHandlers.observer.postMessage(this.message[type]);
   }
 
   private getState(): string {
@@ -84,7 +77,7 @@ export class AppService {
   }
 
   public CheckJSBridge() {
-    let data = this.messageWithAuthKey;
+    let data = this.message.messageWithAuthKey;
     console.log("CheckJSBridge ", data);
 
     if (window.JSBridge) {
