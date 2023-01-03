@@ -15,27 +15,33 @@ declare const webkit: any;
 })
 export class AppService {
 
-  private message = {
-    name: "initAuth",
-    clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
-    redirectUri: "https://wutkaru.github.io/mini/mini-callback",
-    responseType: "code",
-    scope: "offline+openid+citizen",
-    state: "123456789"
+  private get message() {
+    return {
+      name: "initAuth",
+      clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
+      redirectUri: "https://wutkaru.github.io/mini/mini-callback",
+      responseType: "code",
+      scope: "offline+openid+citizen",
+      state: "123456789"
+    }
   };
   
-  private messageWithAuthKey = {
-    ...this.message,
-    state: "123456789"
+  private get messageWithAuthKey() {
+    return {
+      ...this.message,
+      state: "123456789" + this.getState()
+    }
   };
   
-  private messageOrg = {
-    name: "initAuth",
-    clientId: "851e4444-f5cd-40a6-89a0-c7cafc1210db",
-    redirectUri: "https://miniapp-ptid-uat.web.app/miniapp-callback",
-    responseType: "code",
-    scope: "offline+openid",
-    state: "123456789"
+  private get messageOrg() {
+    return {
+      name: "initAuth",
+      clientId: "851e4444-f5cd-40a6-89a0-c7cafc1210db",
+      redirectUri: "https://miniapp-ptid-uat.web.app/miniapp-callback",
+      responseType: "code",
+      scope: "offline+openid",
+      state: "123456789"
+    }
   }
 
   constructor(private route: ActivatedRoute) { }
@@ -59,17 +65,14 @@ export class AppService {
   }
 
   public getMessage(){
-    return this.message;
+    return window.webkit.messageHandlers.observer.postMessage(this.message);
   }
 
   public getMessageWithAuthKey(){
-    return {
-      ...this.message,
-      state: this.getState()
-    }
+    return window.webkit.messageHandlers.observer.postMessage(this.messageWithAuthKey)
   }
   public getMessageOrg(){
-    return this.messageOrg;
+    return  window.webkit.messageHandlers.observer.postMessage(this.messageOrg);
   }
 
   private getState(): string {
@@ -81,7 +84,7 @@ export class AppService {
   }
 
   public CheckJSBridge() {
-    let data = this.getMessageWithAuthKey();
+    let data = this.messageWithAuthKey;
     console.log("CheckJSBridge ", data);
 
     if (window.JSBridge) {
