@@ -8,3 +8,16 @@
 <button (click)="appService.getMessage('messageWithAuthKey')">MessageWithAuthKey</button>
 <br/><br/>
 <button (click)="appService.getMessage('messageOrg')">MessageOrg</button>
+<br/><br/>
+---------
+<p id="demo"></p>
+
+<p id="hhh"></p>
+
+<button onclick="window.webkit.messageHandlers.observer.postMessage({ name: 'closeWebview' });">Close</button>
+<br/><br/>
+<button onclick="window.webkit.messageHandlers.observer.postMessage(message);">Message</button>
+<br/><br/>
+<button onclick="window.webkit.messageHandlers.observer.postMessage(messageWithAuthKey);">MessageWithAuthKey</button>
+<br/><br/>
+<button onclick="window.webkit.messageHandlers.observer.postMessage(messageOrg);">MessageOrg</button>
