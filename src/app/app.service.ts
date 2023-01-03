@@ -39,7 +39,7 @@ export class AppService {
     const params = this.route.snapshot.queryParams;
     const state = Object.keys(params).map((key) => { 
       return key + "=" + params[key];
-    }).join("&");
+    }).join("%26"); // &
     return state;
   }
 
