@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
-
+import { environment } from "../environments/environment";
 declare function CheckJSBridge(): any;
 
 @Component({
@@ -12,6 +12,7 @@ declare function CheckJSBridge(): any;
 })
 export class AppComponent implements OnInit {
   title = "Miniapp";
+  version = environment.version;
 
   constructor(
   ) {}
