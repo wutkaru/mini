@@ -72,12 +72,14 @@ export class AppService {
     return this.message[type];
   }
 
-  private getState(): string {
+  private getState() {
+    // const params = this.route.snapshot.queryParams;
+    // const state = Object.keys(params).map((key) => { 
+    //   return key + "%3D" + params[key]; // key=value
+    // }).join("%26"); // &
+    // return state;
     const params = this.route.snapshot.queryParams;
-    const state = Object.keys(params).map((key) => { 
-      return key + "%3D" + params[key]; // key=value
-    }).join("%26"); // &
-    return state;
+    return JSON.stringify(params);
   }
 
   public CheckJSBridge() {
