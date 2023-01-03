@@ -8,8 +8,11 @@ import { AppService } from '../app.service';
 })
 export class MiniappComponent implements OnInit {
 
+  url: string;
   messageObject = {};
-  constructor(public appService: AppService) { }
+  constructor(public appService: AppService) { 
+    this.url = window.location.href;
+  }
 
 
   ngOnInit(): void {
