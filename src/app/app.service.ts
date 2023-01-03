@@ -38,7 +38,7 @@ export class AppService {
   private getState(): string {
     const params = this.route.snapshot.queryParams;
     const state = Object.keys(params).map((key) => { 
-      return key + "=" + params[key];
+      return key + "%3D" + params[key]; // key=value
     }).join("%26"); // &
     return state;
   }
