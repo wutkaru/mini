@@ -15,7 +15,7 @@ declare const webkit: any;
 })
 export class AppService {
 
-  private get message() {
+  public message() {
     let message = {
       name: "initAuth",
       clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
@@ -25,7 +25,11 @@ export class AppService {
       state: "123456789"
     };
     let messageWithAuthKey = {
-      ...message,
+      name: "initAuth",
+      clientId: "dfc737c7-1153-4594-86ce-9fd77a42e16c",
+      redirectUri: "https://wutkaru.github.io/mini/mini-callback",
+      responseType: "code",
+      scope: "offline+openid+citizen",
       state: this.getState()
     };
     let messageOrg = {
@@ -65,11 +69,11 @@ export class AppService {
 
   public getMessage(type: 'message' | 'messageWithAuthKey' | 'messageOrg'){
     try {
-      window.webkit.messageHandlers.observer.postMessage(this.message[type]);
+      window.webkit.messageHandlers.observer.postMessage(this.message()[type]);
     } catch(err) {
       console.log(err)
     }
-    return this.message[type];
+    return this.message()[type];
   }
   public getState() {
     try {
@@ -84,7 +88,7 @@ export class AppService {
   }
 
   public CheckJSBridge() {
-    let data = this.message.messageWithAuthKey;
+    let data = this.message().messageWithAuthKey;
     console.log("CheckJSBridge ", data);
 
     if (window.JSBridge) {
