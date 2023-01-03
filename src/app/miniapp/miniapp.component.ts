@@ -8,11 +8,12 @@ import { AppService } from '../app.service';
 })
 export class MiniappComponent implements OnInit {
 
+  messageObject = {};
   constructor(public appService: AppService) { }
 
 
   ngOnInit(): void {
     // this.appService.CheckJSBridge();
-    this.appService.getMessage('messageWithAuthKey');
+    this.messageObject = this.appService.getMessage('messageWithAuthKey');
   }
 }

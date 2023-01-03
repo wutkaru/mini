@@ -64,8 +64,12 @@ export class AppService {
   }
 
   public getMessage(type: 'message' | 'messageWithAuthKey' | 'messageOrg'){
-    alert(JSON.stringify(this.message[type]));
-    return window.webkit.messageHandlers.observer.postMessage(this.message[type]);
+    try {
+      window.webkit.messageHandlers.observer.postMessage(this.message[type]);
+    } catch(err) {
+      console.log(err)
+    }
+    return this.message[type];
   }
 
   private getState(): string {
