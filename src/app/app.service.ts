@@ -72,7 +72,7 @@ export class AppService {
     return this.message[type];
   }
 
-  private getState() {
+  public getState() {
     // const params = this.route.snapshot.queryParams;
     // const state = Object.keys(params).map((key) => { 
     //   return key + "%3D" + params[key]; // key=value
