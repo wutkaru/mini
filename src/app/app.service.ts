@@ -71,15 +71,16 @@ export class AppService {
     }
     return this.message[type];
   }
-
   public getState() {
-    // const params = this.route.snapshot.queryParams;
-    // const state = Object.keys(params).map((key) => { 
-    //   return key + "%3D" + params[key]; // key=value
-    // }).join("%26"); // &
-    // return state;
-    const params = this.route.snapshot.queryParams;
-    return JSON.stringify(params);
+    try {
+      const params = this.route.snapshot.queryParams;
+      const state = Object.keys(params).map((key) => { 
+        return key + "%3D" + params[key]; // key=value
+      }).join("%26"); // &
+      return state;
+    } catch(err) {
+      return 'error'
+    }
   }
 
   public CheckJSBridge() {
