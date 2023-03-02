@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   constructor(public service: AppService) {}
 
-  async ngOnInit() {
-    await this.service.post().toPromise();
+  ngOnInit() {
+    this.service.post().toPromise();
   }
 }

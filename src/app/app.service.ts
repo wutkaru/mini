@@ -114,4 +114,8 @@ export class AppService {
   post() {
     return this.http.get("https://dummyjson.com/products/1", {});
   }
+
+  getKey() {
+    return this.key$.asObservable();
+  }
 }

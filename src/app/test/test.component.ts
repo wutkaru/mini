@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { interval } from "rxjs";
 import { AppService } from "../app.service";
 
 @Component({
@@ -11,14 +12,15 @@ export class TestComponent implements OnInit {
   constructor(public service: AppService) {}
 
   ngOnInit() {
-    this.key = this.service.key;
-    console.log(this.service.key);
-    // this.service.key$.subscribe((value) => {
-    //   console.log(value);
-    //   if (value) {
-    //     console.log(this.service.key);
-    //     this.key = this.service.key;
-    //   }
-    // });
+    // this.key = this.service.key;
+    // console.log(this.service.key);
+
+    const myObservable = interval(1000).subscribe((value) => {
+      console.log(value);
+      // if (this.service.key) {
+      console.log(this.service.key);
+      this.key = this.service.key;
+      // }
+    });
   }
 }
