@@ -5,6 +5,7 @@ function onReceiveNativeCommand(command, payload) {
         if (command == 'getAdditionalParams') {
             const data = JSON.parse(payload);
             key = data.key;
+            document.getElementById("key").innerHTML = key;
             alert(key);
         }
     } catch (e) {
