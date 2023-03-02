@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-
+import { Subject } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 export interface JavascriptCallback {
   closeWebview(): any;
   shareImageEvent(data: any): any;
@@ -14,6 +15,8 @@ declare const webkit: any;
   providedIn: "root",
 })
 export class AppService {
+  key: string = "";
+  key$: Subject<boolean> = new Subject<boolean>();
 
   public message() {
     let message = {
@@ -22,7 +25,7 @@ export class AppService {
       redirectUri: "https://wutkaru.github.io/mini/mini-callback",
       responseType: "code",
       scope: "offline+openid+citizen",
-      state: "123456789"
+      state: "123456789",
     };
     let messageWithAuthKey = {
       name: "initAuth",
@@ -30,7 +33,7 @@ export class AppService {
       redirectUri: "https://wutkaru.github.io/mini/mini-callback",
       responseType: "code",
       scope: "offline+openid+citizen",
-      state: this.getState()
+      state: this.getState(),
     };
     let messageOrg = {
       name: "initAuth",
@@ -38,16 +41,16 @@ export class AppService {
       redirectUri: "https://miniapp-ptid-uat.web.app/miniapp-callback",
       responseType: "code",
       scope: "offline+openid",
-      state: "123456789"
+      state: "123456789",
     };
     return {
       message,
       messageWithAuthKey,
-      messageOrg
+      messageOrg,
     };
   }
-  
-  constructor(private route: ActivatedRoute) { }
+
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
   public close() {
     console.log("close webview");
 
@@ -67,23 +70,25 @@ export class AppService {
     }
   }
 
-  public getMessage(type: 'message' | 'messageWithAuthKey' | 'messageOrg'){
+  public getMessage(type: "message" | "messageWithAuthKey" | "messageOrg") {
     try {
       window.webkit.messageHandlers.observer.postMessage(this.message()[type]);
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
     return this.message()[type];
   }
   public getState() {
     try {
       const params = this.route.snapshot.queryParams;
-      const state = Object.keys(params).map((key) => { 
-        return key + "%3D" + params[key]; // key=value
-      }).join("%26"); // &
+      const state = Object.keys(params)
+        .map((key) => {
+          return key + "%3D" + params[key]; // key=value
+        })
+        .join("%26"); // &
       return state;
-    } catch(err) {
-      return 'error'
+    } catch (err) {
+      return "error";
     }
   }
 
@@ -104,5 +109,9 @@ export class AppService {
       // ios
       window.webkit.messageHandlers.observer.postMessage(data);
     }
+  }
+
+  post() {
+    return this.http.get("https://dummyjson.com/products/1", {});
   }
 }

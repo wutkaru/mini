@@ -1,25 +1,28 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from "@angular/core";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { BrowserModule } from "@angular/platform-browser";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MiniappComponent } from './miniapp/miniapp.component';
-import { MiniappCallbackComponent } from './miniapp-callback/miniapp-callback.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppService } from './app.service';
+import { Interceptor } from "./interceptor";
+
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { MiniappComponent } from "./miniapp/miniapp.component";
+import { MiniappCallbackComponent } from "./miniapp-callback/miniapp-callback.component";
+import { AppService } from "./app.service";
+import { TestComponent } from "./test/test.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MiniappComponent,
-    MiniappCallbackComponent
+    MiniappCallbackComponent,
+    TestComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [
+    AppService,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
-  providers: [AppService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
