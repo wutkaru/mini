@@ -1,1 +1,0 @@
-let key="";function onReceiveNativeCommand(t,a){try{"getAdditionalParams"==t&&(key=JSON.parse(a).key,document.getElementById("key").innerHTML=key,alert(key))}catch(e){alert("error receive : "+e)}}function getKey(){return key}

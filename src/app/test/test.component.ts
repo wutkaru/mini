@@ -19,7 +19,7 @@ export class TestComponent implements OnInit {
       console.log(value);
       // if (this.service.key) {
       console.log(this.service.key);
-      this.key = this.service.key;
+      this.key = sessionStorage.getItem("key") || "";
       // }
     });
   }
