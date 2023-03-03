@@ -19,6 +19,7 @@ export class TestComponent implements OnInit {
     //   this.key = sessionStorage.getItem("key") || "";
     //   // }
     // });
+    this.getKey();
   }
 
   getKey() {
