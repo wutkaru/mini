@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { interval, Observable } from "rxjs";
 import { AppService } from "../app.service";
-
+import { takeUntil, catchError, takeWhile } from "rxjs/operators";
 @Component({
   selector: "app-test",
   templateUrl: "./test.component.html",
@@ -12,14 +12,14 @@ export class TestComponent implements OnInit {
   constructor(public service: AppService) {}
 
   ngOnInit() {
-    // const myObservable = interval(1000).subscribe((value) => {
-    //   console.log(value);
-    //   // if (this.service.key) {
-    //   console.log(this.service.key);
-    //   this.key = sessionStorage.getItem("key") || "";
-    //   // }
-    // });
-    this.getKey();
+    const subscription = interval(1000).subscribe((value) => {
+      if (this.service.key) {
+        this.key = sessionStorage.getItem("key") || "";
+        subscription.unsubscribe();
+      } else if (value === 1000) {
+        subscription.unsubscribe();
+      }
+    });
   }
 
   getKey() {
