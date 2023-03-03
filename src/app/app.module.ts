@@ -10,6 +10,7 @@ import { MiniappComponent } from "./miniapp/miniapp.component";
 import { MiniappCallbackComponent } from "./miniapp-callback/miniapp-callback.component";
 import { AppService } from "./app.service";
 import { TestComponent } from "./test/test.component";
+import { StorageService } from "./storage.service";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TestComponent } from "./test/test.component";
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [
     AppService,
+    StorageService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
   bootstrap: [AppComponent],
